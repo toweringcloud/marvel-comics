@@ -18,6 +18,15 @@ export const comicDetail = ({
 	return fetch(`${API_URL}/comics/${comicId}`).then((r) => r.json());
 };
 
+export const listComicCharacters = ({
+	queryKey,
+}: QueryFunctionContext): Promise<CharactersResponse> => {
+	const [_, comicId] = queryKey;
+	return fetch(`${API_URL}/comics/${comicId}/characters`).then((r) =>
+		r.json()
+	);
+};
+
 export const listCharacters = (): Promise<CharactersResponse> =>
 	fetch(`${API_URL}/characters`).then((r) => r.json());
 
@@ -26,13 +35,4 @@ export const characterDetail = ({
 }: QueryFunctionContext): Promise<CharacterDetailResponse> => {
 	const [_, characterId] = queryKey;
 	return fetch(`${API_URL}/characters/${characterId}`).then((r) => r.json());
-};
-
-export const listComicCharacters = ({
-	queryKey,
-}: QueryFunctionContext): Promise<CharactersResponse> => {
-	const [_, comicId] = queryKey;
-	return fetch(`${API_URL}/comics/${comicId}/characters`).then((r) =>
-		r.json()
-	);
 };

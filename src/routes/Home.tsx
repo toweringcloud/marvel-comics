@@ -12,14 +12,10 @@ export default function Home() {
 		queryFn: listComics,
 	});
 
-	if (data) {
-		console.log(data);
-	}
-
 	return (
 		<VStack>
 			<Text color={"red.500"} fontSize={"4xl"} mt={10}>
-				Marvel Comics Explorer
+				Marvel Comics
 			</Text>
 			<Grid
 				mt={10}
@@ -34,11 +30,12 @@ export default function Home() {
 					"2xl": "repeat(5, 1fr)",
 				}}
 			>
-				{isLoading ? <Loading /> : null}
-				{data?.data.results.map((comic: ComicsResult) =>
-					comic.thumbnail.path !== "image_not_available" ? (
+				{isLoading ? (
+					<Loading />
+				) : (
+					data?.data.results.map((comic: ComicsResult) => (
 						<Comic key={comic.id} {...comic} />
-					) : null
+					))
 				)}
 			</Grid>
 		</VStack>
