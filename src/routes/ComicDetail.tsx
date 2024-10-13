@@ -1,5 +1,5 @@
 import { Box, Grid, HStack, Image, Text, VStack } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryKey } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 
 import { comicDetail, listComicCharacters } from "../api";
@@ -42,11 +42,13 @@ export default function ComicDetail() {
 				) : (
 					<>
 						<Box mt={10} ml={5}>
-							<Image
-								minH="200"
-								maxH="800"
-								src={`${detail.thumbnail.path}.${detail.thumbnail.extension}`}
-							/>
+							<Link to={`/comics/${comicId}/characters`}>
+								<Image
+									minH="200"
+									maxH="800"
+									src={`${detail.thumbnail.path}.${detail.thumbnail.extension}`}
+								/>
+							</Link>
 						</Box>
 						<Box mr={5} w={"60vw"}>
 							<Text
