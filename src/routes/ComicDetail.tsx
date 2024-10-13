@@ -1,5 +1,5 @@
 import { Box, Grid, HStack, Image, Text, VStack } from "@chakra-ui/react";
-import { useQuery, QueryKey } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 
 import { comicDetail, listComicCharacters } from "../api";
@@ -19,6 +19,7 @@ export default function ComicDetail() {
 	const { isLoading: loadingDetail, data: dataDetail } =
 		useQuery<ComicDetailResponse>({
 			queryKey: ["comics", comicId],
+			// @ts-ignore
 			queryFn: () => comicDetail({ queryKey: comicId }),
 		});
 	console.log(`ComicDetail: ${JSON.stringify(dataDetail)}`);
@@ -27,6 +28,7 @@ export default function ComicDetail() {
 	const { isLoading: loadingCharacters, data: dataCharacters } =
 		useQuery<CharactersResponse>({
 			queryKey: ["characters", comicId],
+			// @ts-ignore
 			queryFn: () => listComicCharacters({ queryKey: comicId }),
 		});
 	console.log(dataCharacters);
@@ -85,7 +87,9 @@ export default function ComicDetail() {
 				) : (
 					dataCharacters?.data.results.map(
 						(character: CharactersResult) => (
-							<Character key={character.id} {...character} />
+							<Link to={`/characters/${character.id}`}>
+								<Character key={character.id} {...character} />
+							</Link>
 						)
 					)
 				)}

@@ -15,8 +15,8 @@ export default function Characters() {
 
 	return (
 		<VStack>
-			<Text color={"red.500"} fontSize={"4xl"} mt={10}>
-				<Link to="/">Marvel Comics Explorer</Link>
+			<Text color={"red.500"} fontSize={"4xl"} mt={10} noOfLines={1}>
+				<Link to="/">Marvel Characters</Link>
 			</Text>
 			<Grid
 				mt={10}
@@ -35,7 +35,9 @@ export default function Characters() {
 					<Loading />
 				) : (
 					data?.data.results.map((character: CharactersResult) => (
-						<Character key={character.id} {...character} />
+						<Link to={`/characters/${character.id}`}>
+							<Character key={character.id} {...character} />
+						</Link>
 					))
 				)}
 			</Grid>

@@ -13,6 +13,7 @@ export default function ComicCharacters() {
 
 	const { isLoading, data } = useQuery<CharactersResponse>({
 		queryKey: ["comicCharacters", comicId],
+		// @ts-ignore
 		queryFn: () => listComicCharacters({ queryKey: comicId }),
 	});
 

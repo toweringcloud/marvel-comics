@@ -19,7 +19,7 @@ export default function Character({
 					/>
 				</Box>
 				<Box>
-					<Text fontSize={"2xl"} noOfLines={1}>
+					<Text fontSize={"2xl"} fontWeight={700} noOfLines={1}>
 						{name}
 					</Text>
 					<Text noOfLines={[1, 2, 3]}>{description}</Text>
