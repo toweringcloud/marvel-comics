@@ -5,8 +5,8 @@ export default function Loading() {
 		<Stack
 			width="100vw"
 			height="100vh"
-			alignItems="center"
-			justifyContent="center"
+			alignItems={"center"}
+			justifyContent={"center"}
 		>
 			Loading...
 		</Stack>
