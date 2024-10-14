@@ -9,12 +9,11 @@ import Character from "../components/Character";
 
 export default function ComicCharacters() {
 	const { comicId } = useParams();
-	console.log("comicId : " + comicId);
+	// console.log("comicId : " + comicId);
 
 	const { isLoading, data } = useQuery<CharactersResponse>({
 		queryKey: ["comicCharacters", comicId],
-		// @ts-ignore
-		queryFn: () => listComicCharacters({ queryKey: comicId }),
+		queryFn: listComicCharacters,
 	});
 
 	return (

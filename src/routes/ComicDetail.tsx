@@ -14,24 +14,22 @@ import Character from "../components/Character";
 
 export default function ComicDetail() {
 	const { comicId } = useParams();
-	console.log("comicId : " + comicId);
+	// console.log("comicId : " + comicId);
 
 	const { isLoading: loadingDetail, data: dataDetail } =
 		useQuery<ComicDetailResponse>({
 			queryKey: ["comics", comicId],
-			// @ts-ignore
-			queryFn: () => comicDetail({ queryKey: comicId }),
+			queryFn: comicDetail,
 		});
-	console.log(`ComicDetail: ${JSON.stringify(dataDetail)}`);
+	// console.log(`ComicDetail: ${JSON.stringify(dataDetail)}`);
 	const detail: ComicDetailResult = dataDetail?.data.results[0]!;
 
 	const { isLoading: loadingCharacters, data: dataCharacters } =
 		useQuery<CharactersResponse>({
 			queryKey: ["characters", comicId],
-			// @ts-ignore
-			queryFn: () => listComicCharacters({ queryKey: comicId }),
+			queryFn: listComicCharacters,
 		});
-	console.log(dataCharacters);
+	// console.log(dataCharacters);
 
 	return (
 		<VStack>
@@ -64,7 +62,7 @@ export default function ComicDetail() {
 							<Text fontSize={"xl"} fontWeight={500} mb={5}>
 								PUBLISHED: {detail.dates[0].date.split("T")[0]}
 							</Text>
-							<Text>{detail.textObjects[0].text}</Text>
+							<Text>{detail.textObjects[0]?.text}</Text>
 						</Box>
 					</>
 				)}
@@ -87,9 +85,7 @@ export default function ComicDetail() {
 				) : (
 					dataCharacters?.data.results.map(
 						(character: CharactersResult) => (
-							<Link to={`/characters/${character.id}`}>
-								<Character key={character.id} {...character} />
-							</Link>
+							<Character key={character.id} {...character} />
 						)
 					)
 				)}

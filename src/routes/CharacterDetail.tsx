@@ -8,14 +8,13 @@ import Loading from "../components/Loading";
 
 export default function CharacterDetail() {
 	const { characterId } = useParams();
-	console.log("characterId : " + characterId);
+	// console.log("characterId : " + characterId);
 
 	const { isLoading, data } = useQuery<CharacterDetailResponse>({
 		queryKey: ["characters", characterId],
-		// @ts-ignore
-		queryFn: () => characterDetail({ queryKey: characterId }),
+		queryFn: characterDetail,
 	});
-	console.log(`CharacterDetail: ${JSON.stringify(data)}`);
+	// console.log(`CharacterDetail: ${JSON.stringify(data)}`);
 	const detail: CharacterDetailResult = data?.data.results[0]!;
 
 	return (

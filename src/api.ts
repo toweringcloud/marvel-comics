@@ -1,4 +1,6 @@
+import axios from "axios";
 import { QueryFunctionContext } from "@tanstack/react-query";
+
 import {
 	CharacterDetailResponse,
 	CharactersResponse,
@@ -7,6 +9,10 @@ import {
 } from "./types";
 
 const API_URL = "https://marvel-proxy.nomadcoders.workers.dev/v1/public";
+
+const instance = axios.create({
+	baseURL: API_URL,
+});
 
 export const listComics = (): Promise<ComicsResponse> =>
 	fetch(`${API_URL}/comics`).then((r) => r.json());
@@ -30,9 +36,16 @@ export const listComicCharacters = ({
 export const listCharacters = (): Promise<CharactersResponse> =>
 	fetch(`${API_URL}/characters`).then((r) => r.json());
 
+// export const characterDetail = ({
+// 	queryKey,
+// }: QueryFunctionContext): Promise<CharacterDetailResponse> => {
+// 	const [_, characterId] = queryKey;
+// 	return fetch(`${API_URL}/characters/${characterId}`).then((r) => r.json());
+// };
+
 export const characterDetail = ({
 	queryKey,
 }: QueryFunctionContext): Promise<CharacterDetailResponse> => {
 	const [_, characterId] = queryKey;
-	return fetch(`${API_URL}/characters/${characterId}`).then((r) => r.json());
+	return instance.get(`/characters/${characterId}`).then((r) => r.data);
 };
